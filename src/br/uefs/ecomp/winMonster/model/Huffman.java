@@ -10,12 +10,15 @@ public class Huffman {
 	/**
 	 * Constroi vetor de frequencias dos caracteres em um determinado texto
 	 */
-	private int[] construirVetorFreq(){
-		char c;
+		public int[] construirVetorFreq(String texto){
+		char c = 0;
 		int[] ascii = new int[256];
-		// Arquivo
-		// le char
-		ascii[c]++;
+
+		for(int i = 0; i < texto.length(); i++) 
+		{
+			c = texto.charAt(i);
+			ascii[c]++;
+		}
 		return ascii;
 	}
 	
