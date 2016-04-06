@@ -132,9 +132,6 @@ public class Huffman {
 		String[] codigos;
 		codigos = codificarArvore(raiz);
 		
-		// Printando mensagem só pra saber até onde tá rodando. APAGAR DEPOIS
-		System.out.println("Chegamos aqui");
-		
 
 		// Cria instancia de BinarioOut pra poder escrever no arquivo de saida (compactado)
 		BinarioOut compactado = new BinarioOut(arquivoSaida);

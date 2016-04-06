@@ -23,8 +23,6 @@ public class Arquivo {
 			}
 			ler.close();
 			
-			// Printa String lida, só para efeito de teste. APAGAR DEPOIS
-			System.out.println(texto);  
 			return texto.toString();
 	}	
 	
