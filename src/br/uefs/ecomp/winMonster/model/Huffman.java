@@ -148,7 +148,23 @@ public class Huffman {
 		}
 		
 		
-		// Fecha arquivo escrevendo tudo que contininha no buffer
+		// Fecha arquivo escrevendo tudo que continha no buffer
 		compactado.fechar();
-	}
+		}
+	
+	public int funcaoHash(String string){
+			
+			int codigoHash = 0; 
+			int i = 0;
+			
+			for (i = 0; i < string.length(); i++) 
+			{
+				char caractere = string.charAt(i); 
+				int ascii = caractere; 
+				
+				codigoHash += (ascii*2 + i); 
+			}
+			
+			return codigoHash/7;
+		}
 }
