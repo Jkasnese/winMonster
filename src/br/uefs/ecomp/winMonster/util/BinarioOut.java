@@ -8,9 +8,9 @@ import java.io.IOException;
 
 /**
  * 	Classe baseada na classe BinaryStdOut, encontrada em:
- *	http://algs4.cs.princeton.edu/55compression/BinaryStdOut.java
+ *	http://algs4.cs.princeton.edu/55compression/BinaryStdOut.java na data 06/04/2016
  *	
- *	Classe que escreve e lê em bits em um determinado arquivo, fornecido como parâmetro no construtor da classe. 
+ *	Classe que escreve em bits em um determinado arquivo, fornecido como parâmetro no construtor da classe. 
  */
 public class BinarioOut {
 

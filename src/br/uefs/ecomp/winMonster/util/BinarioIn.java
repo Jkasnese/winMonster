@@ -7,6 +7,12 @@ import java.io.IOException;
 import br.uefs.ecomp.winMonster.exceptions.ArquivoNaoPodeSerFechadoException;
 import br.uefs.ecomp.winMonster.exceptions.StreamVaziaException;
 
+/**
+ * 	Classe baseada na classe BinaryStdIn, encontrada em:
+ *	http://algs4.cs.princeton.edu/55compression/BinaryStdIn.java, na data 06/04/2016
+ *	
+ *	Classe que lê em bits de um determinado arquivo, fornecido como parâmetro no construtor da classe. 
+ */
 public class BinarioIn {
 
     private BufferedInputStream in;

@@ -1,9 +1,16 @@
 package br.uefs.ecomp.winMonster.model;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
-import br.uefs.ecomp.winMonster.util.BinarIO;
+import br.uefs.ecomp.winMonster.exceptions.ArquivoNaoPodeSerFechadoException;
+import br.uefs.ecomp.winMonster.exceptions.StreamVaziaException;
+import br.uefs.ecomp.winMonster.util.BinarioIn;
+import br.uefs.ecomp.winMonster.util.BinarioOut;
 import br.uefs.ecomp.winMonster.util.FilaPrioritaria;
 import br.uefs.ecomp.winMonster.util.MeuIterador;
 import br.uefs.ecomp.winMonster.util.No;
@@ -41,7 +48,7 @@ public class Huffman {
 			if (ascii[c] > 0){ // Se o char for usado
 				index = 0;
 				iterador = (MeuIterador) fila.iterador();
-				No no = new No(null, null, ascii[c], c); // Cria No do char
+				No no = new No(ascii[c], c, null, null); // Cria No do char
 				int freq = 0;
 				if (fila.estaVazia()){ // Se fila de Nos estiver vazia, insere na primeira posicao
 					fila.inserirOrdenado(true, 1, 3, 2, no);
@@ -60,7 +67,7 @@ public class Huffman {
 			iterador = (MeuIterador) fila.iterador();
 			No menor = (No) fila.removerInicio();
 			No segundoMenor = (No)  fila.removerInicio();
-			No pai = new No(menor, segundoMenor, menor.getFreq() + segundoMenor.getFreq(), '\0');
+			No pai = new No(menor.getFreq() + segundoMenor.getFreq(), '\0', menor, segundoMenor);
 			int freq = 0;
 			
 			while (!(fila.inserirOrdenado(true, ++index, freq, pai.getFreq(), pai)) && iterador.obterProximo() != null){
@@ -98,7 +105,7 @@ public class Huffman {
 		codificarNo(codigos, no.getNoDireita(), codigo + '1');
 	}
 	
-	private void escreverArvore(No raiz, BinarIO arquivoSaida){
+	private void escreverArvore(No raiz, BinarioOut arquivoSaida){
 		if (raiz.ehFolha()){
 			arquivoSaida.escrever(true);
 			arquivoSaida.escrever(raiz.getCh());
@@ -109,9 +116,8 @@ public class Huffman {
 		escreverArvore(raiz.getNoDireita(), arquivoSaida);
 	}
 	
-
 	
-	public void compactar(String texto, File arquivoSaida) throws FileNotFoundException{
+	public void compactar(String texto, File arquivoSaida, int hash) throws FileNotFoundException{
 
 		//Constroi arvore
 		No raiz;
@@ -125,15 +131,18 @@ public class Huffman {
 		System.out.println("Chegamos aqui");
 		
 
-		// Cria instancia de BinarIO pra poder escrever no arquivo de saida (compactado)
-		BinarIO compactado = new BinarIO(arquivoSaida);
+		// Cria instancia de BinarioOut pra poder escrever no arquivo de saida (compactado)
+		BinarioOut compactado = new BinarioOut(arquivoSaida);
 		
 
+		// Escrever tamanho
+		compactado.escrever(texto.length());
+		
+		// Escreve funcao hash
+		compactado.escrever(hash);
+		
 		// Escreve a arvore no arquivo
 		escreverArvore(raiz, compactado);
-		
-		// escrever tamanho?
-		compactado.escrever(texto.length());
 		
 		
 		// Escrever codigo
@@ -148,7 +157,52 @@ public class Huffman {
 		}
 		
 		
-		// Fecha arquivo escrevendo tudo que contininha no buffer
+		// Fecha arquivo escrevendo tudo que continha no buffer
 		compactado.fechar();
+	}
+	
+	private No leArvore(BinarioIn descompactando) throws StreamVaziaException{
+		if (descompactando.lerBit()){
+			char c = descompactando.lerChar();
+			return new No (0, c, null, null);
+		}
+		return new No(0, '\0', leArvore(descompactando), leArvore(descompactando));
+	}
+	
+	public int descompactar(File arquivoEntrada, File arquivoSaida) throws StreamVaziaException, IOException, ArquivoNaoPodeSerFechadoException{ 
+		
+		// Cria instancia de BinarioIn pra poder ler arquivo compactado e descompactar (descompactando)
+		BinarioIn descompactando = new BinarioIn(new FileInputStream (arquivoEntrada));
+		
+		// Cria instancia arquivo de saida normal
+		BufferedWriter escreve = new BufferedWriter(new FileWriter(arquivoSaida));
+
+		
+		// Le tamanho
+		int n = descompactando.lerInt();
+		
+		// Le funcao hash
+		int hash = descompactando.lerInt();
+		
+		// Le arvore
+		No raiz = leArvore(descompactando);
+		
+		// Le codigo
+	   for (int i = 0; i < n; i++) {  // decodifica próximo caractere
+		   No x = raiz;
+		   while (!x.ehFolha()){
+			   if (descompactando.lerBit())  
+	        	 x = x.getNoDireita();
+			   else
+	        	 x = x.getNoEsquerda();
+		   }
+		   escreve.write(x.getCh());
+		}
+		   
+		// Fecha arquivo que foi lido ao descompactar e fecha arquivo de saida
+	   descompactando.fechar();
+	   escreve.close();
+		
+		return hash;
 	}
 }
