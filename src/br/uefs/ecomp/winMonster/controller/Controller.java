@@ -66,7 +66,7 @@ public class Controller {
 			String textoDescompactado = manipulaArquivo.lerArquivo(arquivo);
 			int segundoHash = funcaoHash(textoDescompactado);
 			if (!(primeiroHash == segundoHash)){ // Caso hashes nao sejam iguais
-				// acontece algo
+				System.out.println("Arquivo corrompido!");
 			}
 		} else { // Caso nao consiga criar novo arquivo
 			// Digite nome blabla
