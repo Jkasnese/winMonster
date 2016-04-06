@@ -32,7 +32,9 @@ public class BinarioOut {
     	buffer <<= 1; 
     	
     	// Caso o bit que se deseja escrever seja 1, converte o bit previamente criado em 1.
-    	if (bit) buffer |= 1; 
+    	if (bit){
+    		buffer |= 1;
+    	}
     	
     	// Incrementa numero de bits escritos no buffer
     	n++;

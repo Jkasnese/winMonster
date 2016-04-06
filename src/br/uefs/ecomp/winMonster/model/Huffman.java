@@ -50,16 +50,16 @@ public class Huffman {
 				iterador = (MeuIterador) fila.iterador();
 				No no = new No(ascii[c], c, null, null); // Cria No do char
 				int freq = 0;
-				if (fila.estaVazia()){ // Se fila de Nos estiver vazia, insere na primeira posicao
-					fila.inserirOrdenado(true, 1, 3, 2, no);
-				} else{ // Caso contrario percorre a fila até achar o local certo de inserção.
-					while (!(fila.inserirOrdenado(true, ++index, freq, no.getFreq(), no)) && iterador.obterProximo() != null){
-						freq = ((No)iterador.getAtual().getElemento()).getFreq();
-				}
-				
-					} // Insere na fila
-				}
+				do { // Insere na lista de prioridade
+					if (!iterador.temProximo()){
+						fila.inserirOrdenado(true, ++index, freq, no.getFreq(), no);
+						break;
+					}
+					index++;
+					freq = ((No) iterador.obterProximo()).getFreq();
+				} while (!(fila.inserirOrdenado(true, index, freq, no.getFreq(), no)));
 			}
+		}
 
 		
 		while (fila.obterTamanho() > 1){
@@ -70,9 +70,14 @@ public class Huffman {
 			No pai = new No(menor.getFreq() + segundoMenor.getFreq(), '\0', menor, segundoMenor);
 			int freq = 0;
 			
-			while (!(fila.inserirOrdenado(true, ++index, freq, pai.getFreq(), pai)) && iterador.obterProximo() != null){
-				freq =((No)iterador.getAtual().getElemento()).getFreq();
-			}
+			do{
+				if (!iterador.temProximo()){
+					fila.inserirOrdenado(true, ++index, freq, pai.getFreq(), pai);
+					break;
+				}
+				index++;
+				freq = ((No)iterador.obterProximo()).getFreq();
+			} while (!(fila.inserirOrdenado(true, index, freq, pai.getFreq(), pai)));
 		}
 		
 		return (No) fila.removerInicio();

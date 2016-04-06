@@ -8,6 +8,8 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 
 import br.uefs.ecomp.winMonster.controller.Controller;
+import br.uefs.ecomp.winMonster.exceptions.ArquivoNaoPodeSerFechadoException;
+import br.uefs.ecomp.winMonster.exceptions.StreamVaziaException;
 
 public class ActionDescompactar implements ActionListener{
 
@@ -23,7 +25,15 @@ public class ActionDescompactar implements ActionListener{
 			
 			if (retorno == JFileChooser.APPROVE_OPTION) { 
 				File arquivo = seletorDeArquivo.getSelectedFile(); // Recebe o arquivo selecionado pelo usuário
-				controller.descompactarArquivo(arquivo);
+				try {
+					controller.descompactarArquivo(arquivo);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (StreamVaziaException e) {
+					e.printStackTrace();
+				} catch (ArquivoNaoPodeSerFechadoException e) {
+					e.printStackTrace();
+				}
 			}
 				else {
 					return;

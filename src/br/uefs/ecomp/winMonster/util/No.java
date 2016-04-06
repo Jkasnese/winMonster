@@ -4,7 +4,7 @@ package br.uefs.ecomp.winMonster.util;
  * @author guiga
  *
  */
-public class No {
+public class No implements Comparable<No> {
 
 	private No noDireita;
 	private No noEsquerda;
@@ -51,6 +51,21 @@ public class No {
 	public No getNoEsquerda() {
 		return noEsquerda;
 	}
+	
+	@Override
+	public int compareTo(No noRecebido) {
+		
+		int a = this.freq;
+		int b = noRecebido.freq;
+		
+		if(a<b) 
+			return 1;
+		if(b<a)
+			return -1;
+		return 0;
+	}
+
+
 	
 	
 }
