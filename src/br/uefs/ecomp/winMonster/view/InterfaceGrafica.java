@@ -17,12 +17,10 @@ public class InterfaceGrafica{
 		SplashScreen splash = new SplashScreen(6200); 
 		splash.mostrarSplash();
 		
-		// Instancia botões com as opções de escolha disponíveis ao usuário
 		JButton botaoCompactar = new JButton("Compactar arquivo");
 		JButton botaoSair = new JButton("Sair");
 		JButton botaoDescompactar = new JButton("Descompactar arquivo");
 
-		// Indica a ação a ser realizada quando botaoSair for selecionado. Nesse caso, fecha o programa.
 		botaoSair.addActionListener(new ActionListener()
 		{	@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -35,7 +33,8 @@ public class InterfaceGrafica{
 		botaoCompactar.addActionListener(actionCompactar);
 		
 		// Ação do botaoDescompactar
-		
+		ActionListener actionDescompactar = new ActionDescompactar();
+		botaoDescompactar.addActionListener(actionDescompactar);
 		
 		// Painel que contém os botões com opções de escolha disponíveis para o usuário	
 		JPanel painel = new JPanel();
@@ -43,13 +42,14 @@ public class InterfaceGrafica{
 		painel.add(botaoSair);
 		painel.add(botaoDescompactar);
 		
-		// Cria janela padrão do programa
+		// Cria janela inicial do programa
 		JFrame janela = new JFrame("WINMonster");
 		janela.add(painel);
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Indica que programa será fechado ao fechar janela
 		janela.pack(); 
+		janela.setLocationRelativeTo(null); // Centralizando a posição da janela na tela
 		janela.setVisible(true); // Janela será visível	
 		
-	}
 }
 
+}		

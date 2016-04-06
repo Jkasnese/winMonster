@@ -4,7 +4,7 @@ package br.uefs.ecomp.winMonster.util;
  * @author guiga
  *
  */
-public class No implements Comparable{
+public class No implements Comparable<No> {
 
 	private No noDireita;
 	private No noEsquerda;
@@ -14,7 +14,7 @@ public class No implements Comparable{
 	public No (){
 	}
 	
-	public No (No noDireita, No noEsquerda, int freq, char ch)
+	public No (int freq, char ch, No noEsquerda, No noDireita)
 	{
 		this.noDireita = noDireita;
 		this.noEsquerda = noEsquerda;
@@ -27,20 +27,6 @@ public class No implements Comparable{
 		return noEsquerda == null && noDireita == null;
 	}
 	
-	@Override
-	public int compareTo(Object objeto) {
-		No noRecebido = (No) objeto;
-		
-		int a = this.freq;
-		int b = noRecebido.freq;
-		
-		if(a<b) 
-			return 1;
-		if(b<a)
-			return -1;
-		return 0;
-	}
-
 	public char getCh() {
 		return ch;
 	}
@@ -65,6 +51,21 @@ public class No implements Comparable{
 	public No getNoEsquerda() {
 		return noEsquerda;
 	}
+	
+	@Override
+	public int compareTo(No noRecebido) {
+		
+		int a = this.freq;
+		int b = noRecebido.freq;
+		
+		if(a<b) 
+			return 1;
+		if(b<a)
+			return -1;
+		return 0;
+	}
+
+
 	
 	
 }
