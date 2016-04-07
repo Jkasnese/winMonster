@@ -21,15 +21,13 @@ public class ActionCompactar implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-		JOptionPane aviso = new JOptionPane();
 		
 		JFileChooser seletorDeArquivo = new JFileChooser(); // Cria janela para seleção do arquivo a
 													                              // ser compactado
 		
 
 		// Filtra para somente compactar arquivos sem extensão, txt, c e cpp
-		seletorDeArquivo.setFileFilter(new FileNameExtensionFilter("Arquivos Txt, C e Cpp", "", "txt", "c", "cpp"));
+		seletorDeArquivo.setFileFilter(new FileNameExtensionFilter("Arquivos Txt, C e Cpp", "txt", "c", "cpp"));
 		
 		
 		// Retorno indica se usuário selecionou um arquivo ou cancelou
@@ -39,15 +37,15 @@ public class ActionCompactar implements ActionListener{
 			File arquivo = seletorDeArquivo.getSelectedFile(); // Recebe o arquivo selecionado pelo usuário
 			try {
 				controller.compactarArquivo(arquivo); // Chama método de compactação de arquivo no Controller
+				JOptionPane.showMessageDialog(null, "Compactacao concluida");
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			} catch (ArquivoVazioException e1) {
 //				Abre janela dizendo que arquivo vazio
-				
-				aviso.showMessageDialog(null, "Arquivo selecionado est� vazio e nao pode ser compactado.");
+				JOptionPane.showMessageDialog(null, "Arquivo selecionado esta vazio e nao pode ser compactado.");
 			}
 			
-				aviso.showMessageDialog(null, "Compactacao concluida");
+
 		}
 			else {
 					return;
