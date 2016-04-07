@@ -34,6 +34,9 @@ public class ActionDescompactar implements ActionListener{
 				} catch (ArquivoNaoPodeSerFechadoException e) {
 					e.printStackTrace();
 				}
+				
+				JOptionPane avisoConclusao = new JOptionPane();
+				avisoConclusao.showMessageDialog(null, "Descompactação concluída");
 			}
 				else {
 					return;
