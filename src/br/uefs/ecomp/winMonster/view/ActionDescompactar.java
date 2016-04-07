@@ -6,8 +6,10 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import br.uefs.ecomp.winMonster.controller.Controller;
+import br.uefs.ecomp.winMonster.exceptions.ArquivoNaoIntegroException;
 import br.uefs.ecomp.winMonster.exceptions.ArquivoNaoPodeSerFechadoException;
 import br.uefs.ecomp.winMonster.exceptions.StreamVaziaException;
 
@@ -33,6 +35,8 @@ public class ActionDescompactar implements ActionListener{
 					e.printStackTrace();
 				} catch (ArquivoNaoPodeSerFechadoException e) {
 					e.printStackTrace();
+				} catch (ArquivoNaoIntegroException e) {
+					 Pop janela dizendo que arquivo nao foi 100% integro
 				}
 				
 				JOptionPane avisoConclusao = new JOptionPane();

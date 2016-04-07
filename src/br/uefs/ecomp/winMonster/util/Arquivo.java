@@ -23,6 +23,9 @@ public class Arquivo {
 			}
 			ler.close();
 			
+			// Ultimo \n nao existe, pois nao foi lida nova linha. Logo eh necessario remover:
+			texto.deleteCharAt(texto.length() -1);
+			
 			return texto.toString();
 	}	
 	

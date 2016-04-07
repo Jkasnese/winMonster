@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import br.uefs.ecomp.winMonster.exceptions.ArquivoNaoIntegroException;
 import br.uefs.ecomp.winMonster.exceptions.ArquivoNaoPodeSerFechadoException;
+import br.uefs.ecomp.winMonster.exceptions.ArquivoVazioException;
 import br.uefs.ecomp.winMonster.exceptions.StreamVaziaException;
 import br.uefs.ecomp.winMonster.model.Huffman;
 import br.uefs.ecomp.winMonster.util.Arquivo;
@@ -33,7 +34,12 @@ public class Controller {
 	}
 	
 	// Chama métodos da classe Huffman para criação da árvore e compactação do arquivo
-	public void compactarArquivo(File arquivo) throws IOException{
+	public void compactarArquivo(File arquivo) throws IOException, ArquivoVazioException{
+
+		// Caso arquivo esteja vazio
+		if (arquivo.length() == 0){
+			throw new ArquivoVazioException("Voce tentou compactar um arquivo vazio!");
+		}
 		
 		// Le arquivo e transfere pra String texto
 		String texto = manipulaArquivo.lerArquivo(arquivo);
@@ -63,7 +69,7 @@ public class Controller {
 		}
 	}
 
-	public void descompactarArquivo(File arquivoDescompactar) throws IOException, StreamVaziaException, ArquivoNaoPodeSerFechadoException{
+	public void descompactarArquivo(File arquivoDescompactar) throws IOException, StreamVaziaException, ArquivoNaoPodeSerFechadoException, ArquivoNaoIntegroException{
 		
 		// Instancia novo arquivo. Substitui .monster por "", para que arquivo volte à extensão original
 		File arquivo = new File(arquivoDescompactar.getAbsolutePath().replace(".monster", ""));
@@ -89,7 +95,7 @@ public class Controller {
 	}
 	
 		
-	private void descompactaAposCriacaoDeArquivo(File arquivoDescompactar, File arquivo) throws IOException, StreamVaziaException, ArquivoNaoPodeSerFechadoException{
+	private void descompactaAposCriacaoDeArquivo(File arquivoDescompactar, File arquivo) throws IOException, StreamVaziaException, ArquivoNaoPodeSerFechadoException, ArquivoNaoIntegroException{
 		
 		// Descompacta
 		int primeiroHash = arvoreHuffman.descompactar(arquivoDescompactar, arquivo);

@@ -6,8 +6,10 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import br.uefs.ecomp.winMonster.controller.Controller;
+import br.uefs.ecomp.winMonster.exceptions.ArquivoVazioException;
 
 /**
  * Classe que implementa a interface ActionListener para indicar qual ação deve ser realizada quando o botaoCompactar for ativado 
@@ -31,6 +33,8 @@ public class ActionCompactar implements ActionListener{
 				controller.compactarArquivo(arquivo); // Chama método de compactação de arquivo no Controller
 			} catch (IOException e1) {
 				e1.printStackTrace();
+			} catch (ArquivoVazioException e1) {
+				Abre janela dizendo que arquivo vazio
 			}
 			
 				JOptionPane avisoConclusao = new JOptionPane();
