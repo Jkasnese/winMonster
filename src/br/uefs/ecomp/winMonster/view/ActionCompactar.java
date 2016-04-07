@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 
 import br.uefs.ecomp.winMonster.controller.Controller;
 import br.uefs.ecomp.winMonster.exceptions.ArquivoVazioException;
@@ -21,9 +22,11 @@ public class ActionCompactar implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
+		JOptionPane aviso = new JOptionPane();
+		
 		JFileChooser seletorDeArquivo = new JFileChooser(); // Cria janela para seleção do arquivo a
 													                              // ser compactado
-
+		
 		// Retorno indica se usuário selecionou um arquivo ou cancelou
 		int retorno = seletorDeArquivo.showOpenDialog(null);
 		
@@ -34,15 +37,15 @@ public class ActionCompactar implements ActionListener{
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			} catch (ArquivoVazioException e1) {
-				Abre janela dizendo que arquivo vazio
+				
+				aviso.showMessageDialog(null, "Arquivo selecionado est� vazio e nao pode ser compactado.");
 			}
 			
-				JOptionPane avisoConclusao = new JOptionPane();
-				avisoConclusao.showMessageDialog(null, "Compactação concluída");
+				aviso.showMessageDialog(null, "Compactacao concluida");
 		}
 			else {
-			// Faz não sei que não sei que lá se tiver cancelado
-		}
+					return;
+			}
 
 	}
 

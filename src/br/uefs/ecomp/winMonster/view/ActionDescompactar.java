@@ -19,6 +19,8 @@ public class ActionDescompactar implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		Controller controller = new Controller();
 		
+			JOptionPane aviso = new JOptionPane();
+		
 			JFileChooser seletorDeArquivo = new JFileChooser(); // Cria janela para seleção do arquivo a
 														// ser compactado
 			
@@ -36,11 +38,12 @@ public class ActionDescompactar implements ActionListener{
 				} catch (ArquivoNaoPodeSerFechadoException e) {
 					e.printStackTrace();
 				} catch (ArquivoNaoIntegroException e) {
-					 Pop janela dizendo que arquivo nao foi 100% integro
+				
+					aviso.showMessageDialog(null, "Arquivo que foi descompactado est� corrompido.");
+					
 				}
 				
-				JOptionPane avisoConclusao = new JOptionPane();
-				avisoConclusao.showMessageDialog(null, "Descompactação concluída");
+				aviso.showMessageDialog(null, "Descompactacao concluida!");
 			}
 				else {
 					return;
