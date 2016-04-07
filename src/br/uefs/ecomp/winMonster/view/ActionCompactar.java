@@ -22,6 +22,8 @@ public class ActionCompactar implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
+		JOptionPane aviso = new JOptionPane();
+		
 		JFileChooser seletorDeArquivo = new JFileChooser(); // Cria janela para seleção do arquivo a
 													                              // ser compactado
 		
@@ -41,14 +43,15 @@ public class ActionCompactar implements ActionListener{
 				e1.printStackTrace();
 			} catch (ArquivoVazioException e1) {
 //				Abre janela dizendo que arquivo vazio
+				
+				aviso.showMessageDialog(null, "Arquivo selecionado est� vazio e nao pode ser compactado.");
 			}
 			
-				JOptionPane avisoConclusao = new JOptionPane();
-				avisoConclusao.showMessageDialog(null, "Compactação concluída");
+				aviso.showMessageDialog(null, "Compactacao concluida");
 		}
 			else {
-			// Faz não sei que não sei que lá se tiver cancelado
-		}
+					return;
+			}
 
 	}
 
