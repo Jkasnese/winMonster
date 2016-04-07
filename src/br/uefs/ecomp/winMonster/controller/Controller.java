@@ -37,7 +37,6 @@ public class Controller {
 		// Le arquivo e transfere pra String texto
 		String texto = manipulaArquivo.lerArquivo(arquivo);
 		int hash = funcaoHash(texto);
-		System.out.println(hash);
 		
 		// Cria novo arquivo, que será usado pra saída do arquivo compactado
 		File saida = new File (arquivo.getAbsolutePath() + ".monster");
@@ -51,7 +50,7 @@ public class Controller {
 			// Modifica nome do arquivo a ser criado
 			int i = 1;
 
-			String[] nomes = arquivo.getAbsolutePath().split(".");
+			String[] nomes = arquivo.getAbsolutePath().split("\\.");
 			
 			do {
 				saida = new File(nomes[0] + "(" + i +")" + "." + nomes[1] + ".monster");
@@ -60,10 +59,7 @@ public class Controller {
 			
 			// Apos conseguir criar arquivo, compacta
 			arvoreHuffman.compactar(texto, saida, hash);
-			
-			
 		}
-		
 	}
 
 	public void descompactarArquivo(File arquivoDescompactar) throws IOException, StreamVaziaException, ArquivoNaoPodeSerFechadoException{
@@ -78,7 +74,7 @@ public class Controller {
 						// Modifica nome do arquivo
 			int i = 1;
 
-			String[] nomes = arquivoDescompactar.getAbsolutePath().split(".");
+			String[] nomes = arquivoDescompactar.getAbsolutePath().split("\\.");
 			
 			do {
 				arquivo = new File(nomes[0] + "(" + i +")" + "." + nomes[1]);
@@ -89,7 +85,8 @@ public class Controller {
 			descompactaAposCriacaoDeArquivo(arquivoDescompactar, arquivo);
 
 		}
-		
+	}
+	
 		
 	private void descompactaAposCriacaoDeArquivo(File arquivoDescompactar, File arquivo) throws IOException, StreamVaziaException, ArquivoNaoPodeSerFechadoException{
 		
@@ -104,5 +101,5 @@ public class Controller {
 		if (!(primeiroHash == segundoHash)){ // Caso hashes nao sejam iguais
 			// acontece algo
 		}
-			
+	}	
 }
