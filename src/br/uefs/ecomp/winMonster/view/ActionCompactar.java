@@ -32,6 +32,9 @@ public class ActionCompactar implements ActionListener{
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
+			
+				JOptionPane avisoConclusao = new JOptionPane();
+				avisoConclusao.showMessageDialog(null, "Compactação concluída");
 		}
 			else {
 			// Faz não sei que não sei que lá se tiver cancelado
