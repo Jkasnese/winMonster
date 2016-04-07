@@ -4,6 +4,7 @@ package br.uefs.ecomp.winMonster.controller;
 import java.io.File;
 import java.io.IOException;
 
+import br.uefs.ecomp.winMonster.exceptions.ArquivoNaoIntegroException;
 import br.uefs.ecomp.winMonster.exceptions.ArquivoNaoPodeSerFechadoException;
 import br.uefs.ecomp.winMonster.exceptions.StreamVaziaException;
 import br.uefs.ecomp.winMonster.model.Huffman;
@@ -99,7 +100,7 @@ public class Controller {
 
 
 		if (!(primeiroHash == segundoHash)){ // Caso hashes nao sejam iguais
-			// acontece algo
+			throw new ArquivoNaoIntegroException("A descompactacao nao foi cem por cento fiel ao arquivo original!");
 		}
 	}	
 }
