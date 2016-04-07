@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import br.uefs.ecomp.winMonster.controller.Controller;
 import br.uefs.ecomp.winMonster.exceptions.ArquivoNaoIntegroException;
@@ -22,6 +23,9 @@ public class ActionDescompactar implements ActionListener{
 			JFileChooser seletorDeArquivo = new JFileChooser(); // Cria janela para seleção do arquivo a
 														// ser compactado
 			
+			// Filtra para somente compactar arquivos monster
+			seletorDeArquivo.setFileFilter(new FileNameExtensionFilter("Arquivos Monster", "monster"));
+			
 			// Retorno indica se usuário selecionou um arquivo ou cancelou
 			int retorno = seletorDeArquivo.showOpenDialog(null);
 			
@@ -36,7 +40,7 @@ public class ActionDescompactar implements ActionListener{
 				} catch (ArquivoNaoPodeSerFechadoException e) {
 					e.printStackTrace();
 				} catch (ArquivoNaoIntegroException e) {
-					 Pop janela dizendo que arquivo nao foi 100% integro
+//					 Pop janela dizendo que arquivo nao foi 100% integro
 				}
 				
 				JOptionPane avisoConclusao = new JOptionPane();

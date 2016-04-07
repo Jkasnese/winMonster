@@ -78,7 +78,8 @@ public class Controller {
 		if (arquivo.createNewFile()){
 			descompactaAposCriacaoDeArquivo(arquivoDescompactar, arquivo);
 		} else { // Caso nao consiga criar novo arquivo
-						// Modifica nome do arquivo
+			
+			// Modifica nome do arquivo
 			int i = 1;
 
 			String[] nomes = arquivoDescompactar.getAbsolutePath().split("\\.");
